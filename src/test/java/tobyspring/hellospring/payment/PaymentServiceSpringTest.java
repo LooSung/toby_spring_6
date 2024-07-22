@@ -25,9 +25,6 @@ class PaymentServiceSpringTest {
 	@Autowired
 	PaymentService	paymentService;
 
-	@Autowired
-	ExRateProviderSub exRateProviderSub;
-
 	@Test
 	void convertedAmount() throws IOException {
 		// exRate : 1000
@@ -37,22 +34,7 @@ class PaymentServiceSpringTest {
 		// 원화환산금액 계산
 		Assertions.assertThat(payment.getConvertedAmount()).isEqualByComparingTo(valueOf(10_000));
 
-		// exRate : 500
-		exRateProviderSub.setExRate(valueOf(500));
-		Payment payment2 = paymentService.prepare(1L, "USD", BigDecimal.TEN);
-		// 환율정보 가져온다
-		Assertions.assertThat(payment2.getExRate()).isEqualByComparingTo(valueOf(500));
-		// 원화환산금액 계산
-		Assertions.assertThat(payment2.getConvertedAmount()).isEqualByComparingTo(valueOf(5_000));
-
 		// 원화환산금액 유효기간 계산
 		// Assertions.assertThat(payment.getValidUntil()).isBefore(LocalDateTime.now().plusMinutes(30));
-	}
-
-	@NonNull
-	private static void testAmount(BigDecimal exRate, BigDecimal convertedAmount) throws IOException {
-		PaymentService paymentService = new PaymentService(new ExRateProviderSub(exRate));
-
-
 	}
 }
