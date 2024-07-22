@@ -3,18 +3,17 @@ package tobyspring.hellospring;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tobyspring.hellospring.exrate.CachedExRateProvider;
-import tobyspring.hellospring.exrate.SimpleExRateProvider;
 import tobyspring.hellospring.payment.ExRateProvider;
-import tobyspring.hellospring.payment.ExRateProviderSub;
+import tobyspring.hellospring.exrate.SimpleExRateProvider;
 import tobyspring.hellospring.payment.PaymentService;
 
-import java.math.BigDecimal;
+import java.time.Clock;
 
 @Configuration
-public class TestObjectFactory {
+public class PaymentConfig {
 	@Bean
 	public PaymentService paymentService() {
-		return new PaymentService(cahcedExRateProvider());
+		return new PaymentService(cahcedExRateProvider(), clock());
 	}
 
 	// Decorator Pattern을 이용한 Cahce 기능 추가
@@ -25,6 +24,11 @@ public class TestObjectFactory {
 
 	@Bean
 	public ExRateProvider exRateProvider() {
-		return new ExRateProviderSub(BigDecimal.valueOf(1_000));
+		return new SimpleExRateProvider();
+	}
+
+	@Bean
+	public Clock clock() {
+		return Clock.systemDefaultZone();
 	}
 }
