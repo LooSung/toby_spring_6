@@ -2,7 +2,6 @@ package tobyspring.hellospring.exrate;
 
 import tobyspring.hellospring.payment.ExRateProvider;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

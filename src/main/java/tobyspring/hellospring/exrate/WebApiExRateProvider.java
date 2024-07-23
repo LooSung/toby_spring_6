@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 
 public class WebApiExRateProvider implements ExRateProvider {
 	@Override public BigDecimal getExRate(String currency) {
-		URI uri;
 		String url  = "https://open.er-api.com/v6/latest/" + currency;
 
+		URI uri;
 		try {
 			uri = new URI(url);
 		} catch (URISyntaxException e) {
@@ -27,20 +27,30 @@ public class WebApiExRateProvider implements ExRateProvider {
 
 		String response;
 		try {
-			HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
-			try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-				response = br.lines().collect(Collectors.joining());
-			}
+			response = executeApi(uri);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 
 		try {
-			ObjectMapper mapper = new ObjectMapper();
-			ExRateData data = mapper.readValue(response, ExRateData.class);
-			return data.rates().get("KRW");
+			return parseExRate(response);
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private static BigDecimal parseExRate(String response) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		ExRateData data = mapper.readValue(response, ExRateData.class);
+		return data.rates().get("KRW");
+	}
+
+	private static String executeApi(URI uri) throws IOException {
+		String response;
+		HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+			response = br.lines().collect(Collectors.joining());
+		}
+		return response;
 	}
 }
