@@ -25,7 +25,7 @@ class PaymentServiceTest {
 
 	@Test
 	@DisplayName("prepare 메소드가 요구사항 3가지를 잘 충족했는지 검증")
-	void convertedAmount() throws IOException {
+	void convertedAmount() {
 		testAmount(valueOf(500), valueOf(5_000), clock);
 		testAmount(valueOf(1000), valueOf(10_000), clock);
 		testAmount(valueOf(3000), valueOf(30_000), clock);
@@ -35,7 +35,7 @@ class PaymentServiceTest {
 	}
 
 	@NonNull
-	private static void testAmount(BigDecimal exRate, BigDecimal convertedAmount, Clock clock) throws IOException {
+	private static void testAmount(BigDecimal exRate, BigDecimal convertedAmount, Clock clock) {
 		PaymentService paymentService = new PaymentService(new ExRateProviderSub(exRate), clock);
 
 		Payment payment = paymentService.prepare(1L, "USD", BigDecimal.TEN);
@@ -48,7 +48,7 @@ class PaymentServiceTest {
 	}
 
 	@Test
-	void validUntil() throws IOException {
+	void validUntil() {
 		PaymentService paymentService = new PaymentService(new ExRateProviderSub(valueOf(1_000)), clock);
 
 		Payment payment = paymentService.prepare(1L, "USD", BigDecimal.TEN);

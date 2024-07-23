@@ -23,7 +23,7 @@ class PaymentServiceSpringTest {
 	@Autowired Clock clock;
 
 	@Test
-	void convertedAmount() throws IOException {
+	void convertedAmount() {
 		// exRate : 1000
 		Payment payment = paymentService.prepare(1L, "USD", BigDecimal.TEN);
 		// 환율정보 가져온다
@@ -33,7 +33,7 @@ class PaymentServiceSpringTest {
 	}
 
 	@Test
-	void validUntil() throws IOException {
+	void validUntil() {
 		Payment payment = paymentService.prepare(1L, "USD", BigDecimal.TEN);
 
 		//valid untill이 prepare() 30분 뒤로 설정됫는가??
