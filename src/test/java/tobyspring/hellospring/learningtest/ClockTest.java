@@ -23,12 +23,11 @@ public class ClockTest {
 	@Test
 	void fixedClock() {
 		Clock clock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-
 		LocalDateTime dateTime1 = LocalDateTime.now(clock);
 		LocalDateTime dateTime2 = LocalDateTime.now(clock);
-		LocalDateTime dateTime3 = LocalDateTime.now(clock).plusHours(1);
+		LocalDateTime dateTime3 = dateTime1.plusHours(1);
 
-		Assertions.assertThat(dateTime1).isAfter(dateTime2);
-		Assertions.assertThat(dateTime3).isAfter(dateTime1.plusHours(1));
+		Assertions.assertThat(dateTime1).isEqualTo(dateTime2);
+		Assertions.assertThat(dateTime3).isAfter(dateTime1);
 	}
 }

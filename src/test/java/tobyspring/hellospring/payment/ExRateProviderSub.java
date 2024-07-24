@@ -19,7 +19,7 @@ public class ExRateProviderSub implements ExRateProvider {
 	}
 
 	@Override
-	public BigDecimal getExRate(String currencyCode) throws IOException {
+	public BigDecimal getExRate(String currencyCode) {
 		return exRate;
 	}
 }
