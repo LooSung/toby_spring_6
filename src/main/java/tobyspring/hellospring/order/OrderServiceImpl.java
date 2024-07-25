@@ -1,11 +1,12 @@
 package tobyspring.hellospring.order;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@Service public class OrderServiceImpl implements OrderService {
+@Service @Transactional public class OrderServiceImpl implements OrderService {
 	private final OrderRepository jpaOrderRepository;
 
 	public OrderServiceImpl(OrderRepository jpaOrderRepository) {
