@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 		return new JdbcOrderRepository(dataSource);
 	}
 
-	@Bean public OrderService orderService(PlatformTransactionManager transactionManager, OrderRepository orderRepository) {
-		return new OrderService(orderRepository, transactionManager);
+	@Bean public OrderService orderService(OrderRepository orderRepository) {
+		return new OrderService(orderRepository);
 	}
 }
