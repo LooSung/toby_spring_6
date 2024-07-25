@@ -1,6 +1,5 @@
 package tobyspring.hellospring.order;
 
-import org.assertj.core.api.Assert;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +14,7 @@ import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.util.List;
 
-@ExtendWith(SpringExtension.class) @ContextConfiguration(classes = OrderConfig.class) public class OrderServiceSpringTest {
+@ExtendWith(SpringExtension.class) @ContextConfiguration(classes = OrderConfig.class) public class OrderServiceImplSpringTest {
 	@Autowired OrderService orderService;
 	@Autowired DataSource dataSource;
 
