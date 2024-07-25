@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "orders")
 public class Order {
 	@Id
 	@GeneratedValue
@@ -36,6 +34,11 @@ public class Order {
 	public BigDecimal getTotal() {
 		return total;
 	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 
 	@Override public String toString() {
 		return "Order{" + "id=" + id + ", no='" + no + '\'' + ", total=" + total + '}';
